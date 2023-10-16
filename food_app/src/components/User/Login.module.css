@@ -1,0 +1,16 @@
+/* styles.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
+  background-color: #f0f0f0; /* Background color for the entire page */
+}
+
+.login-card {
+  width: 300px; /* Adjust the width as needed */
+  padding: 20px;
+  background-color: #fff; /* Background color for the card */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a box shadow for a card-like appearance */
+}
