@@ -14,6 +14,33 @@
   z-index: 10;
 }
 
+.navbutton {
+  cursor: pointer;
+  text-decoration: none;
+  font: inherit;
+  border: none;
+  background-color: #4d1601;
+  color: white;
+  padding: 0.75rem 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 25px;
+  font-weight: bold;
+  margin-right: 5px; /* Adjust margin as needed */
+}
+
+.navbutton:hover,
+.navbutton:active {
+  background-color: #2c0d00;
+}
+
+.navicon {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 0.5rem;
+}
+
 .main-image {
   width: 100%;
   height: 25rem;

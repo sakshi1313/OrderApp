@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const HeaderCartButton = (props) => {
   const [pressed, setPressed] = useState(false);
   const cartCtx = useContext(CartContext);
+  const [numItems, setNumItems] = useState(0);
   const numberOfItems = cartCtx.items.reduce((currNum, item) => {
     return currNum + item.amount;
   }, 0);
@@ -14,6 +15,22 @@ const HeaderCartButton = (props) => {
   const btnClasses = `${classes.button} ${pressed ? classes.bump : ""}`;
 
   const { items } = cartCtx;
+
+  useEffect(() => {
+    // Fetch the number of items from your database
+    fetch("/api/user/cart", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setNumItems(data.totalItems);
+      })
+      .catch((error) => {
+        console.error("Error fetching data from the database: ", error);
+      });
+  }, [items]);
+
   useEffect(() => {
     if (items.length === 0) {
       return;
@@ -46,7 +63,7 @@ const HeaderCartButton = (props) => {
           <CartIcon />
         </span>
         <span>Your Cart</span>
-        <span className={classes.badge}>{numberOfItems}</span>
+        <span className={classes.badge}>{numItems}</span>
       </button>
     </Link>
   );

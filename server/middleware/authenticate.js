@@ -4,16 +4,18 @@ const User = require("../model/UserSchema");
 const Authenticate = async (req, res, next) => {
   try {
     console.log("*******************");
-    // console.log(req.cookies.jwttoken)
     const token = req.cookies.jwttoken;
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "Authentication failed. Token missing." });
+    }
     const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
-    // verifyToken me vo token h jo user ka aaya h verified wla
 
     const rootUser = await User.findOne({
       _id: verifyToken._id,
       "tokens.token": token,
     });
-    // rootUser me user ka sara data aa gya..token authorize hone ke baad
 
     if (!rootUser) {
       throw new Error("User not found");

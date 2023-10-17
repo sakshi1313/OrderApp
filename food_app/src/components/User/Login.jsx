@@ -3,8 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import classes from "./Login.module.css";
 import Card from "../UI/Card";
+import { UserContext } from "../../App"; // has two values..state and dispatch
 
 const Login = () => {
+  const { state, dispatch } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -27,6 +30,8 @@ const Login = () => {
     if (res.status === 400 || !data) {
       window.alert("Invalid Credentials");
     } else {
+      dispatch({ type: "USER", payload: true });
+
       window.alert("LOgin successful");
       console.log("sucess login");
       navigate("/menu");

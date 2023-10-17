@@ -202,10 +202,45 @@ router.delete("/api/cart/:productId", async (req, res) => {
   }
 });
 
+// --------------------------------------------------------------------------------------------------
+router.get("/api/user/cart", authenticate, async (req, res) => {
+  try {
+    const userId = req.rootUser._id;
+    console.log(userId);
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const cartData = user.cart;
+    let totalItems = 0;
+    cartData.forEach((item) => {
+      totalItems += item.amount;
+    });
+    const totalAmount = cartData.reduce(
+      (total, item) => total + item.price * item.amount,
+      0
+    );
+    console.log("++++++++++++++++++++++++++++++++");
+    console.log(user.cart);
+
+    return res.status(200).json({
+      cartItems: user.cart,
+      totalAmount: user.totalAmount,
+      totalItems: totalItems,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+// ---------------------------------------------------------------------------------------------------
+
 module.exports = router;
 
 router.get("/api/logout", (req, res) => {
-  console.log("Logout ");
+  console.log("LOgout ");
+  res.clearCookie("jwttoken", { path: "/" });
   res.status(200).send("User Logout");
 });
 

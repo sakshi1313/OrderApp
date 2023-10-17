@@ -1,0 +1,11 @@
+.nav_ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Display list items horizontally */
+}
+
+/* Style the list items (horizontal layout) */
+.nav_li {
+  margin-right: 10px; /* Add some margin between list items */
+}
